@@ -14,7 +14,7 @@ import uvicorn
 class BrowserWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Sarah Chatbot UI")
+        self.setWindowTitle("Chatbot UI")
         self.showFullScreen()
         self.browser = QWebEngineView()
         self.setCentralWidget(self.browser)
@@ -27,7 +27,7 @@ def pulse_event():
     asyncio.run(server.send_pulse_event())
 
 def main(app, window):
-    print("Sarah chatbot is ready! Say something or say 'exit' to quit.\n")
+    print("Chatbot is ready! Say something or say 'exit' to quit.\n")
 
     while True:
         user_input = recognize_speech()
