@@ -4,7 +4,7 @@ from PyQt6.QtCore import QUrl
 
 def create_window():
     window = QMainWindow()
-    window.setWindowTitle("Sarah Chatbot UI")
+    window.setWindowTitle("Chatbot UI")
     window.resize(800, 600)
 
     webview = QWebEngineView()

@@ -2,9 +2,9 @@
 import pyttsx3
 
 #Text to speech
-def speak_response(sarah_response):
-    sarah = pyttsx3.init()
-    voices = sarah.getProperty('voices')
-    sarah.setProperty('voice', voices[1].id)
-    sarah.say(sarah_response)
-    sarah.runAndWait()
+def speak_response(chatbot_response):
+    chatbot = pyttsx3.init()
+    voices = chatbot.getProperty('voices')
+    chatbot.setProperty('voice', voices[1].id)
+    chatbot.say(chatbot_response)
+    chatbot.runAndWait()
