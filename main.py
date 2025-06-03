@@ -90,7 +90,6 @@ def main(app, window):
 
         else:
             bot_reply = get_bot_response(user_input)
-            print(f"🤖 Bot: {bot_reply}")
             pulse_event()
             speak_response(bot_reply)
 

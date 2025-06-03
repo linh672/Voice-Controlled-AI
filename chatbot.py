@@ -19,7 +19,11 @@ def get_bot_response(user_message: str) -> str:
     )
 
     bot_reply = ""
+    first_chunk = True
     for chunk in response:
+        if first_chunk:
+            print("🤖 Bot: ", end="", flush=True)
+            first_chunk = False
         content = chunk.choices[0].delta.content or ""
         bot_reply += content
         print(content, end="", flush=True)

@@ -4,7 +4,7 @@ def recognize_speech():
     #Speech recognition
     r = sr.Recognizer()
     with sr.Microphone() as user:
-        print("Listening...")
+        print("\nListening...")
         audio = r.listen(user)
     try:
         return r.recognize_google(audio)
