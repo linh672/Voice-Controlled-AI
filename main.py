@@ -1,0 +1,70 @@
+import sys
+import threading
+import time
+import asyncio
+from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtWebEngineWidgets import QWebEngineView
+from PyQt6.QtCore import QUrl
+from chatbot_module.speech_to_text import recognize_speech
+from chatbot_module.text_to_speech import speak_response
+from chatbot import get_bot_response
+import server
+import uvicorn
+
+class BrowserWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Sarah Chatbot UI")
+        self.showFullScreen()
+        self.browser = QWebEngineView()
+        self.setCentralWidget(self.browser)
+        self.browser.load(QUrl("http://127.0.0.1:8000/static/chatbot_ui.html"))
+
+def run_server():
+    uvicorn.run(server.app, host="127.0.0.1", port=8000)
+
+def pulse_event():
+    asyncio.run(server.send_pulse_event())
+
+def main(app, window):
+    print("Sarah chatbot is ready! Say something or say 'exit' to quit.\n")
+
+    while True:
+        user_input = recognize_speech()
+        asyncio.run(server.send_pulse_event())
+
+        if user_input.strip() == "":
+            print(" Could not recognize speech. Please try again.")
+            continue
+
+        print(f"\n👤 You: {user_input}")
+
+        if user_input.lower() in ["exit", "quit"]:
+            pulse_event()
+            print(" Goodbye!")
+            # Close the PyQt window and quit the app
+            window.close()
+            app.quit()
+            break
+
+        bot_reply = get_bot_response(user_input)
+        print(f"🤖 Bot: {bot_reply}")
+
+        pulse_event()
+        speak_response(bot_reply)
+
+if __name__ == "__main__":
+    # Start FastAPI server in a background thread
+    threading.Thread(target=run_server, daemon=True).start()
+    time.sleep(1)  # wait for server to start
+
+    app = QApplication(sys.argv)
+    window = BrowserWindow()
+    window.show()
+
+    # Run your chatbot voice loop in a separate thread to keep UI responsive
+    threading.Thread(target=main, args=(app, window), daemon=True).start()
+
+    sys.exit(app.exec())
+
+
