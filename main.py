@@ -80,9 +80,9 @@ def main(app, window):
                 speak_response("Please specify a city for the weather.")
 
         elif user_input.lower() in ["exit", "quit", 'goodbye']:
-            print("🤖 Bot: Goodbye, , have a nice day!")
+            print("🤖 Bot: Goodbye, have a nice day!")
             pulse_event()
-            speak_response("Goodbye, , have a nice day!")
+            speak_response("Goodbye, have a nice day!")
             # Close the PyQt window and quit the app
             window.close()
             app.quit()
