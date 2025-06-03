@@ -1,6 +1,6 @@
-# 🎙️ Sarah - Voice-Controlled AI Chatbot
+# 🎙️ Voice-Controlled AI Chatbot
 
-Sarah is a voice-activated AI assistant that listens to user speech, processes it through a chatbot model, and replies via speech and a live animated web interface. It combines **PyQt6**, **FastAPI**, **speech recognition**, and **text-to-speech** technologies into a fully interactive experience.
+This is a voice-activated AI assistant that listens to user speech, processes it through a chatbot model, and replies via speech and a live animated web interface. It combines **PyQt6**, **FastAPI**, **speech recognition**, and **text-to-speech** technologies into a fully interactive experience.
 
 ---
 
