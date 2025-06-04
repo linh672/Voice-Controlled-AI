@@ -41,7 +41,7 @@ def main(app, window):
 
         print(f"\n👤 You: {user_input}")
 
-
+        #time and date
         if "what time is it" in user_input or 'what date is it today' in user_input:
             if 'in' in user_input:
                 city = user_input.split('in')[-1].strip()
@@ -55,6 +55,7 @@ def main(app, window):
                     full_response("Sorry, I couldn't find that city. Please try again.")
             else:
                 full_response("Please specify a city for the time or date.")
+        #weather
         elif 'how is the weather today' in user_input or 'what is the weather today' in user_input:
             # Extract city name from recognized text
             if 'in' in user_input:
@@ -65,7 +66,7 @@ def main(app, window):
                     full_response("Please tell me the name of the city.")
             else:
                 full_response("Please specify a city for the weather.")
-
+        #goodbye
         elif user_input.lower() in ["exit", "quit", 'goodbye']:
             full_response("Goodbye, have a nice day!")
             # Close the PyQt window and quit the app
