@@ -8,7 +8,8 @@ from PyQt6.QtCore import QUrl
 from chatbot_module.speech_to_text import recognize_speech
 from chatbot_module.text_to_speech import speak_response
 from chatbot import get_bot_response
-from chatbot_module.basic_module import get_local_time, get_weather
+from chatbot_module.response_module import full_response
+from chatbot_module.function_module import get_local_time, get_weather
 import server
 import uvicorn
 
@@ -47,42 +48,26 @@ def main(app, window):
                 try:
                     time, date_today = get_local_time(city)
                     if 'time' in user_input:
-                        print(f"🤖 Bot: The current time in {city} is {time}")
-                        pulse_event()
-                        speak_response(f"The current time in {city} is {time}")
+                        full_response(f"The current time in {city} is {time}")
                     elif 'date' in user_input:
-                        print(f"🤖 Bot: Today in {city} is {date_today}")
-                        pulse_event()
-                        speak_response (f"Today in {city} is {date_today}")
+                        full_response(f"Today in {city} is {date_today}")
                 except:
-                    print("🤖 Bot: Sorry, I couldn't find that city. Please try again.")
-                    pulse_event()
-                    speak_response("Sorry, I couldn't find that city. Please try again.")
+                    full_response("Sorry, I couldn't find that city. Please try again.")
             else:
-                print("🤖 Bot: Please specify a city for the time or date.")
-                pulse_event()
-                speak_response("Please specify a city for the time or date.")
+                full_response("Please specify a city for the time or date.")
         elif 'how is the weather today' in user_input or 'what is the weather today' in user_input:
             # Extract city name from recognized text
             if 'in' in user_input:
                 city = user_input.split('in')[-1].strip()
                 if city:
-                    print(f"🤖 Bot: {asyncio.run(get_weather(city))}")
-                    pulse_event()
-                    speak_response(asyncio.run(get_weather(city)))
+                    full_response(asyncio.run(get_weather(city)))
                 else:
-                    print("🤖 Bot: Please tell me the name of the city.")
-                    pulse_event
-                    speak_response("Please tell me the name of the city.")
+                    full_response("Please tell me the name of the city.")
             else:
-                print("🤖 Bot: Please specify a city for the weather.")
-                pulse_event
-                speak_response("Please specify a city for the weather.")
+                full_response("Please specify a city for the weather.")
 
         elif user_input.lower() in ["exit", "quit", 'goodbye']:
-            print("🤖 Bot: Goodbye, have a nice day!")
-            pulse_event()
-            speak_response("Goodbye, have a nice day!")
+            full_response("Goodbye, have a nice day!")
             # Close the PyQt window and quit the app
             window.close()
             app.quit()
